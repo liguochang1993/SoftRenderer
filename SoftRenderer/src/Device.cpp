@@ -140,7 +140,7 @@ void Device::line(Vertex v1, Vertex v2) {
 	int d = std::abs(dy);
 	int error = 0;
 	int y = y0;
-	#pragma omp parallel for schedule(dynamic)
+	#pragma omp parallel for
 	for (int x = x0; x <= (int)x1; x++) {
 		float t;
 		if (x1 == x0) 
@@ -387,6 +387,7 @@ void Device::triangle_raster(Vertex *v0, Vertex *v1, Vertex *v2) {
 		float x3 = (v1->pos.y - v0->pos.y) * (v2->pos.x - v0->pos.x) / (v2->pos.y - v0->pos.y) + v0->pos.x;
 		float y3 = v1->pos.y;
 
+		bool f = false;
 		Vertex *v3 = new Vertex({ x3, y3, 0.0f }, { 0.0f, 0.0f, 0.0f });
 
 		float t3 = (float)(y3 - v0->pos.y) / (v2->pos.y - v0->pos.y);
@@ -395,10 +396,16 @@ void Device::triangle_raster(Vertex *v0, Vertex *v1, Vertex *v2) {
 		if (v1->pos.x > x3)
 		{
 			std::swap(v1, v3);
+			f = true;
 		}
 		
 		bottom_trangle_raster(v0, v1, v3);
 		top_trangle_raster(v1, v3, v2);
+
+		if (f)
+			delete v1;
+		else
+			delete v3;
 	}
 }
 

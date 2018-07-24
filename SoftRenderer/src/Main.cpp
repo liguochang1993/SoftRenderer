@@ -106,7 +106,7 @@ int main(int argc, char** argv) {
 	Light *light = new Light({ 3.0f, -6.0f, 3.0f, 1.0f }, { 1.0f, 1.0f, 1.0f });
 	Device *device = new Device(800, 600, screen->fb);
 	device->init(light);
-	camera_init(device, 6, 6, -3);
+	camera_init(device, 6, 6, 3);
 	device->render_state = RENDER_STATE_COLOR;
 	//device->render_state = RENDER_STATE_TEXTURE;
 
@@ -120,7 +120,7 @@ int main(int argc, char** argv) {
 		/*Matrix sm;
 		Math::matrix_set_scale(&sm, 1.5f, 1.5f, 1.5f);
 		Matrix rm;
-		Math::matrix_set_rotate(&rm, 0.0f, 1.0f, 0.0f, 1.0f);
+		Math::matrix_set_y_rotate(&rm, 1.0f);
 		Matrix tm;
 		Math::matrix_set_translate(&tm, 0.0f, 0.0f, 3.0f);
 		Matrix m;
@@ -149,7 +149,7 @@ int main(int argc, char** argv) {
 
 		screen->update();
 
-		//std::cout << Math::fps() << std::endl;
+		std::cout << Math::fps() << std::endl;
 	}
 
 	return 0;

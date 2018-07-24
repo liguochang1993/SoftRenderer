@@ -81,28 +81,60 @@ void Math::matrix_set_translate(Matrix *m, float x, float y, float z)
 }
 
 // rotate
-void Math::matrix_set_rotate(Matrix *m, float x, float y, float z, float theta)
+//void Math::matrix_set_rotate(Matrix *m, float x, float y, float z, float theta)
+//{
+//	float qsin = (float)sin(theta * 0.5f);
+//	float qcos = (float)cos(theta * 0.5f);
+//	Vector vec = { x,y,z,1.0f };
+//	float w = qcos;
+//	Math::vector_normalize(&vec);
+//	x = vec.x * qsin;
+//	y = vec.y * qsin;
+//	z = vec.z * qsin;
+//	m->m[0][0] = 1 - 2 * y * y - 2 * z * z;
+//	m->m[1][0] = 2 * x * y - 2 * w * z;
+//	m->m[2][0] = 2 * x * z + 2 * w * y;
+//	m->m[0][1] = 2 * x * y + 2 * w * z;
+//	m->m[1][1] = 1 - 2 * x * x - 2 * z * z;
+//	m->m[2][1] = 2 * y * z - 2 * w * x;
+//	m->m[0][2] = 2 * x * z - 2 * w * y;
+//	m->m[1][2] = 2 * y * z - 2 * w * x;
+//	m->m[2][2] = 1 - 2 * x * x - 2 * y * y;
+//	m->m[0][3] = m->m[1][3] = m->m[2][3] = 0.0f;
+//	m->m[3][0] = m->m[3][1] = m->m[3][2] = 0.0f;
+//	m->m[3][3] = 1.0f;
+//}
+void Math::matrix_set_x_rotate(Matrix *m, float theta)
 {
+	Math::matrix_set_identity(m);
 	float qsin = (float)sin(theta * 0.5f);
 	float qcos = (float)cos(theta * 0.5f);
-	Vector vec = { x,y,z,1.0f };
-	float w = qcos;
-	Math::vector_normalize(&vec);
-	x = vec.x * qsin;
-	y = vec.y * qsin;
-	z = vec.z * qsin;
-	m->m[0][0] = 1 - 2 * y * y - 2 * z * z;
-	m->m[1][0] = 2 * x * y - 2 * w * z;
-	m->m[2][0] = 2 * x * z + 2 * w * y;
-	m->m[0][1] = 2 * x * y + 2 * w * z;
-	m->m[1][1] = 1 - 2 * x * x - 2 * z * z;
-	m->m[2][1] = 2 * y * z - 2 * w * x;
-	m->m[0][2] = 2 * x * z - 2 * w * y;
-	m->m[1][2] = 2 * y * z - 2 * w * x;
-	m->m[2][2] = 1 - 2 * x * x - 2 * y * y;
-	m->m[0][3] = m->m[1][3] = m->m[2][3] = 0.0f;
-	m->m[3][0] = m->m[3][1] = m->m[3][2] = 0.0f;
-	m->m[3][3] = 1.0f;
+	m->m[1][1] = qcos;
+	m->m[1][2] = qsin;
+	m->m[2][1] = -qsin;
+	m->m[2][2] = qcos;
+}
+
+void Math::matrix_set_y_rotate(Matrix *m, float theta)
+{
+	Math::matrix_set_identity(m);
+	float qsin = (float)sin(theta * 0.5f);
+	float qcos = (float)cos(theta * 0.5f);
+	m->m[0][0] = qcos;
+	m->m[0][2] = -qsin;
+	m->m[2][0] = qsin;
+	m->m[2][2] = qcos;
+}
+
+void Math::matrix_set_z_rotate(Matrix *m, float theta)
+{
+	Math::matrix_set_identity(m);
+	float qsin = (float)sin(theta * 0.5f);
+	float qcos = (float)cos(theta * 0.5f);
+	m->m[0][0] = qcos;
+	m->m[0][1] = qsin;
+	m->m[1][0] = -qsin;
+	m->m[1][1] = qcos;
 }
 
 // scale

@@ -20,7 +20,9 @@ public:
 	static void matrix_set_orthographic(Matrix *m, float fovy, float aspect, float zn, float zf);
 	static void matrix_mul(Matrix *c, const Matrix *a, const Matrix *b);
 	static void matrix_set_translate(Matrix *m, float x, float y, float z);
-	static void matrix_set_rotate(Matrix *m, float x, float y, float z, float theta);
+	static void matrix_set_x_rotate(Matrix *m, float theta);
+	static void matrix_set_y_rotate(Matrix *m, float theta);
+	static void matrix_set_z_rotate(Matrix *m, float theta);
 	static void matrix_set_scale(Matrix *m, float x, float y, float z);
 	static void matrix_set_lookat(Matrix *m, const Vector *eye, const Vector *at, const Vector *up, Vector *lookAt);
 
